@@ -108,7 +108,9 @@ def Pre_data(data_name, early_type, early, max_len=200):
         cascades[cas] = [i[:max_] for i in cascades[cas]]
 
         order = [i[0] for i in sorted(enumerate(cascades[cas][1]), key=lambda x: float(x[1]))]
-        cascades[cas] = cascades[cas][:,order]
+        #print(cascades[cas].shape)
+        cascades[cas] = [[x[i] for i in order] for x in cascades[cas]]
+        #cascades[cas] = cascades[cas][:,order]
         #cascades[cas][1][:] = [cascades[cas][1][i] for i in order]
         #cascades[cas][0][:] = [cascades[cas][0][i] for i in order]
         #cascades[cas][2][:] = [cascades[cas][2][i] for i in order]
@@ -136,7 +138,8 @@ def Pre_data(data_name, early_type, early, max_len=200):
     '''ordered by timestamps'''
     for cas in list(ucascades.keys()):
         order = [i[0] for i in sorted(enumerate(ucascades[cas][1]), key=lambda x: float(x[1]))]
-        cascades[cas] = cascades[cas][:, order]
+        #ucascades[cas] = cascades[cas][:, order]
+        ucascades[cas] = [[x[i] for i in order] for x in ucascades[cas]]
         #ucascades[cas][1][:] = [ucascades[cas][1][i] for i in order]
         #ucascades[cas][0][:] = [ucascades[cas][0][i] for i in order]
     user_set = ucascades.keys()
@@ -220,7 +223,7 @@ def Pre_data(data_name, early_type, early, max_len=200):
 if __name__ == "__main__":
     data_name = 'poli'
     options = Options(data_name)
-    news_cascades, user_parti, labels, user_size, news_list= Pre_data(data_name, early_type = Constants.early_type, early = 4)
+    news_cascades, user_parti, labels, user_size, news_list= Pre_data(data_name, early_type = Constants.early_type, early = None)
     train_news = np.array([i+1 for i in options.train_idx])
     valid_news = np.array([i+1 for i in options.valid_idx])
     test_news = np.array([i+1 for i in options.test_idx])
