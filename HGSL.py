@@ -96,7 +96,7 @@ class HGSL(nn.Module):
         news_out = torch.einsum("abc,ab->ac", (att_out, nor_input))
 
         #Concatenate temporal propagation status
-        news_out = torch.cat([news_out, spread_status[data_idx][:, 3:5]/3600/24], dim=-1)
+        news_out = torch.cat([news_out, spread_status[data_idx][:, 2:]/3600/24], dim=-1)
         news_out = news_out.matmul(self.weight)
 
         #Local structural learning

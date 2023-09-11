@@ -54,7 +54,7 @@ def FeatureReader(data_name):
     with open(options.news_features, 'rb') as f:
         features = np.array(pickle.load(f))
         news_size = len(features)
-        spread_status = np.zeros((news_size + 1, 5))
+        spread_status = np.zeros((news_size + 1, 4))
         for news in features:
             #print(news)
             spread_status[n2idx[news[0]]]=np.array(news[1:])
